@@ -14,6 +14,7 @@
 &trackball_listener {
     input-processors = <&zip_temp_layer MOUSE 500
                        >;
+};
 
 &mt {
     flavor = "balanced";
