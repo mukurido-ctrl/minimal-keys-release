@@ -11,8 +11,8 @@
     require-prior-idles-ms = <200>;
 };
 
-&trackball_listener{
-    input-processors = <&zip_temp_layer MOUSE 500 // 500ms stay at mouse layer
+&trackball_listener {
+    input-processors = <&zip_temp_layer MOUSE 500
                        >;
 
 &mt {
