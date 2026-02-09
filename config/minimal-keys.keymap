@@ -7,15 +7,6 @@
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100
 #define MOUSE 6
 
-&zip_temp_layer {
-    require-prior-idles-ms = <200>;
-};
-
-&trackball_listener {
-    input-processors = <&zip_temp_layer MOUSE 500
-                       >;
-};
-
 &mt {
     flavor = "balanced";
     quick-tap-ms = <0>;
@@ -58,6 +49,15 @@
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
         };
     };
+
+&zip_temp_layer {
+    require-prior-idles-ms = <200>;
+};
+
+&trackball_listener {
+    input-processors = <&zip_temp_layer MOUSE 500
+                       >;
+};
 
     keymap {
         compatible = "zmk,keymap";
