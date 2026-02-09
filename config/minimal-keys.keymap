@@ -7,6 +7,14 @@
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100
 #define MOUSE 6
 
+&zip_temp_layer {
+    require-prior-idles-ms = <200>;
+};
+
+&trackball_listener{
+    input-processors = <&zip_temp_layer MOUSE 500 // 500ms stay at mouse layer
+                       >;
+
 &mt {
     flavor = "balanced";
     quick-tap-ms = <0>;
