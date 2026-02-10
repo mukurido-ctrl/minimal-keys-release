@@ -21,7 +21,7 @@
         
         /* <&プロセッサ名 レイヤー番号 タイムアウトms>
            100msに設定。誤作動しても0.1秒で復帰します。 */
-        input-processors = <&zip_temp_layer_6 6 100>;
+        input-processors = <&zip_temp_layer_6 6 400>;
     };
 };
 
