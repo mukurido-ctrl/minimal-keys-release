@@ -18,7 +18,8 @@ manifest:
       remote: caksoylar
       revision: main
     - name: zmk-node-free-config
-      url: https://github.com/urob/zmk-node-free-config  # ← url 直接指定に変更
+      # remote を使わず、直接 git 形式の URL を指定します
+      url: https://github.com/urob/zmk-node-free-config.git
       revision: main
   self:
     path: config
