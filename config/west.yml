@@ -17,8 +17,5 @@ manifest:
     - name: zmk-rgbled-widget
       remote: caksoylar
       revision: main
-    - name: zmk-node-free-config
-      url: https://github.com/urob/zmk-node-free-config
-      revision: main
   self:
     path: config
