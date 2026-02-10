@@ -11,13 +11,14 @@
     zip_temp_layer_6: zip_temp_layer_6 {
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <2>;
+　　　　timeout-ms = <100>;
     };
 
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        /* ボールを動かすとレイヤー6(MOUSE)を500ms起動 */
-        input-processors = <&zip_temp_layer_6 6 500>;
+        input-processors = <&zip_temp_layer_6 6 10>;
+　　　　input-processors-exclude-layers = <7>;
     };
 };
 
