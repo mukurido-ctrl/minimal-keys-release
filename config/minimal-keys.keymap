@@ -1,6 +1,10 @@
-trackball_listener: trackball_listener {
-    compatible = "zmk,input-listener";
-};
+/ {
+    trackball_listener: trackball_listener {
+        compatible = "zmk,input-listener";
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
 
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
 
