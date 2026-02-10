@@ -1,25 +1,25 @@
+#undef ZMK_POINTING_DEFAULT_SCRL_VAL
+
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 100
+#define MOUSE 6
+
+#include <input/processors.dtsi>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 
-#undef ZMK_POINTING_DEFAULT_SCRL_VAL
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 100
-#define MOUSE 6
-
-#include <input/processors.dtsi>
-
-&zip_temp_layer {
-    require-prior-idle-ms = <200>;
-};
+&zip_temp_layer { require-prior-idle-ms = <200>; };
 
 // トラックボールの設定(AML, SCROLL)
+
 &trackball_listener {
-    input-processors =  <
+    input-processors = <
                         // トラックボールの向きの変更(ZaruBallv1とv2,v3ではセンサーの向きが異なるので調整してください。デフォルトではv2,v3用)
                          &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
                          &zip_temp_layer MOUSE 500 // 500ms stay at mouse layer
-                        >;
+    >;
+
     scroller {
         layers = <SCROLL>;
         input-processors = <
@@ -27,9 +27,10 @@
                             &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)
                             &zip_xy_scaler 1 20 // スクロールの感度(default: x20)
                             &zip_xy_to_scroll_mapper
-                            >;
+        >;
     };
 };
+
 &mt {
     flavor = "balanced";
     quick-tap-ms = <0>;
@@ -47,7 +48,7 @@
         };
     };
 
-      behaviors {
+    behaviors {
         lt_to_layer_0: lt_to_layer_0 {
             compatible = "zmk,behavior-hold-tap";
             label = "LAYER_TAP_TO_0";
@@ -78,13 +79,13 @@
 
         default_layer {
             bindings = <
-&kp Q     &kp W         &kp E              &kp R                  &kp T                                  &kp Y            &kp U  &kp I      &kp O    &kp P
+&kp Q     &kp W         &kp E              &kp R                  &kp T                                  &kp Y            &kp U  &kp I      &kp O    &lt 6 P
 &kp A     &kp S         &kp D              &kp F                  &kp G        &mkp MB1       &kp COLON  &kp H            &kp J  &kp K      &kp L    &kp MINUS
 &kp Z     &kp X         &kp C              &kp V                  &kp B        &mkp MB2       &kp CAPS   &kp N            &kp M  &kp COMMA  &kp DOT  &kp SLASH
 &kp RCMD  &kp LEFT_ALT  &kp RIGHT_CONTROL  &mt LEFT_COMMAND CAPS  &lt 1 SPACE  &lt 3 ENTER    &lt 1 DEL  &lt 2 BACKSPACE                             &kp RIGHT_SHIFT
             >;
 
-          sensor-bindings =<&inc_dec_kp C_VOLUME_DOWN C_VOLUME_UP>;
+            sensor-bindings = <&inc_dec_kp C_VOLUME_DOWN C_VOLUME_UP>;
         };
 
         layer_1 {
@@ -106,7 +107,7 @@
 &kp RG(SPACE)         &kp PLUS    &kp NUMBER_0  &kp RS(RG(V))  &kp RG(C)     &kp RG(V)       &trans          &trans                                                                         &kp PIPE
             >;
 
-            sensor-bindings = 
+            sensor-bindings =
                 <&scroll_up_down>,
                 <&inc_dec_kp C_VOL_DN C_VOL_UP>;
         };
@@ -142,7 +143,7 @@
 
         MOUSE {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans    &trans    &trans    &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &mkp MB4  &mkp MB5  &trans    &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &mkp MB1  &mkp MB3  &mkp MB2  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans    &trans    &trans    &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans                                &trans
