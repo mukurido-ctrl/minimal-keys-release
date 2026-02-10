@@ -25,7 +25,7 @@
         };
     };
 
-    /* --- 今回追加したインプットプロセッサ設定 --- */
+    /* 1. インプットプロセッサの定義 */
     zip_temp_layer_6: zip_temp_layer_6 {
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <1>;
@@ -44,7 +44,13 @@
         compatible = "zmk,input-processor-xy-to-scroll";
         #input-processor-cells = <0>;
     };
-    /* -------------------------------------- */
+
+    /* 2. 入力リスナーの定義 (right.overlayのtrackballノードと紐付け) */
+    trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>; 
+        input-processors = <&zip_temp_layer_6>, <&zip_scroll_on_layer_3>;
+    };
 
     behaviors {
         lt_to_layer_0: lt_to_layer_0 {
@@ -140,10 +146,4 @@
             >;
         };
     };
-};
-
-/* --- ここでトラックボールノードにインプットプロセッサを適用 --- */
-&trackball_peripheral {
-    status = "okay";
-    input-processors = <&zip_temp_layer_6>, <&zip_scroll_on_layer_3>;
 };
