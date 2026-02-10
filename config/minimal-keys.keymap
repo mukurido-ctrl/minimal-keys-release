@@ -16,31 +16,21 @@
 };
 
 / {
-    /* トラックボールの設定：右手側ビルド時のみ有効化 */
+    /* トラックボールのリスナー定義をここ（keymap）に集約 */
 #if IS_ENABLED(CONFIG_ZMK_INPUT_MOUSE_TRACKBALL) || defined(SHIELD_MINIMAL_KEYS_R)
-    
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
-        device = <&trackball>; // overlay の &trackball と紐付け
-        
+        device = <&trackball>; // overlayの名称と一致させる
+
         input-processors = <
-            /* 軸の入れ替えと反転（overlay側の物理設定に合わせて調整） */
+            /* 1. 物理的な向きの調整 */
             &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
-            
-            /* 500ms のオートマウスレイヤー設定（MOUSE = 6） */
+            /* 2. マウスレイヤー（6）へ500ms移行する設定 */
             &zip_temp_layer MOUSE 500
         >;
-
-        scroller {
-            layers = <SCROLL>; // レイヤー3にいる時はスクロール
-            input-processors = <
-                &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)
-                &zip_xy_scaler 1 20
-                &zip_xy_to_scroll_mapper
-            >;
-        };
     };
 
+    /* タイムアウトの設定を別途記述 */
     &zip_temp_layer {
         require-prior-idle-ms = <500>;
     };
