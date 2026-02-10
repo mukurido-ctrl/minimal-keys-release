@@ -48,7 +48,8 @@
     /* 2. 入力リスナーの定義 */
     trackball_listener {
         compatible = "zmk,input-listener";
-        device = <&trackball>; 
+        /* ラベルを使わず、パスで直接指定します */
+        device = <&{/soc/peripheral@50000000/spi@8000/trackball@0}>; 
         input-processors = <&zip_temp_layer_6>, <&zip_scroll_on_layer_3>;
     };
 
