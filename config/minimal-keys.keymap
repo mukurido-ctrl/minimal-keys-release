@@ -35,9 +35,9 @@
         };
     };
 
-    /* アイドル判定しきい値を500msに設定 */
+    /* アイドル判定しきい値を200msに設定 */
     &zip_temp_layer {
-        require-prior-idle-ms = <500>;
+        require-prior-idle-ms = <200>;
     };
 #endif
 
