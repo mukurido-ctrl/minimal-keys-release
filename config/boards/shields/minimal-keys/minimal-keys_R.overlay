@@ -6,19 +6,26 @@
     col-offset = <6>;
 };
 
-/* 1. トラックボール動作設定：オートマウスのみ定義 */
+/* 1. トラックボール制御（動作ルール） */
 / {
+    /* オートマウスレイヤー定義 */
     zip_temp_layer_6: zip_temp_layer_6 {
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <2>;
-　　　　timeout-ms = <100>;
+        /* 戻り時間を短く設定 */
+        timeout-ms = <100>;
     };
 
+    /* 入力リスナー */
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
+        /* <&zip_temp_layer_6 レイヤー番号 最小移動ドット数>
+           末尾の「10」が閾値です。10ドット動かすまでレイヤーが変わりません。 */
         input-processors = <&zip_temp_layer_6 6 10>;
-　　　　input-processors-exclude-layers = <7>;
+
+        /* スクロールレイヤー(7)の時はオートマウスを無効化 */
+        input-processors-exclude-layers = <7>;
     };
 };
 
@@ -74,9 +81,6 @@
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&xiao_d 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        
-        /* ドライバの標準機能：レイヤー3にいる間だけスクロールにする */
-        /* これを 6 に含めなければ、オートマウス中に勝手にスクロールすることはありません */
         scroll-layers = <7>; 
     };
 };
