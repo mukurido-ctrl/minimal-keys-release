@@ -8,7 +8,7 @@
 
 /* 1. トラックボール制御 */
 / {
-    /* オートマウスレイヤー定義：ここはシンプルに */
+    /* オートマウスレイヤー定義 */
     zip_temp_layer_6: zip_temp_layer_6 {
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <2>;
@@ -19,13 +19,9 @@
         compatible = "zmk,input-listener";
         device = <&trackball>;
         
-        /* 引数の構成： <&プロセッサ名 レイヤー番号 タイムアウトms>
-           この「100」が戻り時間です。
-           もし移動量での閾値を設けたい場合は、ドライバ側で調整します。 */
+        /* <&プロセッサ名 レイヤー番号 タイムアウトms>
+           100msに設定。誤作動しても0.1秒で復帰します。 */
         input-processors = <&zip_temp_layer_6 6 100>;
-
-        /* スクロールレイヤー(7)の時は無効化 */
-        input-processors-exclude-layers = <7>;
     };
 };
 
@@ -46,7 +42,7 @@
         ;
 };
 
-/* 3. SPIピン設定（既存のまま） */
+/* 3. SPIピン設定 */
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
@@ -81,6 +77,8 @@
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&xiao_d 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        
+        /* スクロール対象を 7 に設定 */
         scroll-layers = <7>; 
     };
 };
