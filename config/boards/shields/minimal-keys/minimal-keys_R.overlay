@@ -6,7 +6,7 @@
     col-offset = <6>;
 };
 
-/* 1. トラックボール制御（最新のZMK記法） */
+/* 1. トラックボール制御（動作ルールをここにまとめる） */
 / {
     /* オートマウスレイヤー定義 */
     zip_temp_layer_6: zip_temp_layer_6 {
@@ -14,14 +14,26 @@
         #input-processor-cells = <2>;
     };
 
-    /* 入力リスナー：物理デバイスと動作を紐付け */
+    /* スクロール変換定義 */
+    zip_xy_to_scroll: zip_xy_to_scroll {
+        compatible = "zmk,input-processor-xy-to-scroll";
+        #input-processor-cells = <0>;
+    };
+
+    /* スクロール専用リスナー：レイヤー3の時だけ作動 */
+    scroll_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+        input-processors = <&zip_xy_to_scroll>;
+        input-processors-limit-to-layers = <3>; 
+    };
+
+    /* 通常移動リスナー：レイヤー3の時は無効化 */
     trackball_listener {
         compatible = "zmk,input-listener";
-        device = <&trackball>; 
-        /* 第1引数: レイヤー番号 (6)
-           第2引数: タイムアウトms (500) 
-        */
+        device = <&trackball>;
         input-processors = <&zip_temp_layer_6 6 500>;
+        input-processors-exclude-layers = <3>;
     };
 };
 
@@ -77,6 +89,6 @@
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&xiao_d 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        scroll-layers = <3 6>;
+        /* 以前常にスクロールしていた原因の scroll-layers は削除しました */
     };
 };
