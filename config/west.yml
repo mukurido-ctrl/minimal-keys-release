@@ -6,8 +6,6 @@ manifest:
       url-base: https://github.com/hyhy-masa
     - name: caksoylar
       url-base: https://github.com/caksoylar
-    - name: urob
-      url-base: https://github.com/urob
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -19,8 +17,9 @@ manifest:
     - name: zmk-rgbled-widget
       remote: caksoylar
       revision: main
-    - name: zmk-node-free-config
-      remote: urob
+    # 名前を zmk-node-free-config から urob-node-free に変更してキャッシュを回避
+    - name: urob-node-free
+      url: https://github.com/urob/zmk-node-free-config
       revision: main
   self:
     path: config
