@@ -39,13 +39,6 @@
     };
 };
 
-/ {
-    trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball>;
-    };
-};
-
 &spi0 {
     status = "okay";
     compatible = "nordic,nrf-spim";
