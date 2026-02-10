@@ -17,9 +17,9 @@ manifest:
     - name: zmk-rgbled-widget
       remote: caksoylar
       revision: main
-    # 名前を zmk-node-free-auto-layer に変更（これでゴミを回避）
-    - name: zmk-node-free-auto-layer
-      url: https://github.com/urob/zmk-node-free-config
+    # 完全に独立した定義として記述
+    - name: urob_config_module
+      url: https://github.com/urob/zmk-node-free-config.git
       revision: main
   self:
     path: config
