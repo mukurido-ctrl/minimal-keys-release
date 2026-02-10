@@ -17,13 +17,15 @@
 };
 
 / {
-    /* トラックボールの設定：右手側ビルド時のみ有効化 */
-#if IS_ENABLED(CONFIG_ZMK_INPUT_MOUSE_TRACKBALL) || defined(SHIELD_MINIMAL_KEYS_R)
-    
-    trackball_listener: trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball>; 
-
+/* 一旦 #if を消して、直接定義してみる */
+trackball_listener: trackball_listener {
+    compatible = "zmk,input-listener";
+    device = <&trackball>; 
+    input-processors = <
+        &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
+        &ib_tog_layer MOUSE
+    >;
+};
         input-processors = <
             /* 軸の入れ替えと反転 */
             &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
