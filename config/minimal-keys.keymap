@@ -25,14 +25,6 @@
         };
     };
 
-    /* 1. インプットプロセッサの定義 */
-    zip_temp_layer_6: zip_temp_layer_6 {
-        compatible = "zmk,input-processor-temp-layer";
-        #input-processor-cells = <2>; 
-        layer = <6>;           
-        timeout-ms = <500>;    
-    };
-
     zip_scroll_on_layer_3: zip_scroll_on_layer_3 {
         compatible = "zmk,input-processor-intercept-layer";
         #input-processor-cells = <2>; 
