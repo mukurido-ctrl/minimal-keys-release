@@ -2,6 +2,7 @@
 
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100
 #define MOUSE 6
+#define SCROLL 3
 
 #include <input/processors.dtsi>
 #include <behaviors.dtsi>
@@ -15,18 +16,18 @@
 
 &trackball_listener {
     input-processors = <
-                        // トラックボールの向きの変更(ZaruBallv1とv2,v3ではセンサーの向きが異なるので調整してください。デフォルトではv2,v3用)
-                         &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
-                         &zip_temp_layer MOUSE 500 // 500ms stay at mouse layer
+        // トラックボールの向きの変更(ZaruBallv1とv2,v3ではセンサーの向きが異なるので調整してください。デフォルトではv2,v3用)
+        &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
+        &zip_temp_layer MOUSE 500 // 500ms stay at mouse layer
     >;
 
     scroller {
         layers = <SCROLL>;
         input-processors = <
-                            // スクロールの向きの変更
-                            &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)
-                            &zip_xy_scaler 1 20 // スクロールの感度(default: x20)
-                            &zip_xy_to_scroll_mapper
+            // スクロールの向きの変更
+            &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)
+            &zip_xy_scaler 1 20 // スクロールの感度(default: x20)
+            &zip_xy_to_scroll_mapper
         >;
     };
 };
@@ -141,7 +142,7 @@
             >;
         };
 
-        MOUSE {
+        mouse_layer {
             bindings = <
 &trans  &trans  &trans  &trans  &trans                    &trans  &mkp MB4  &mkp MB5  &trans    &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &mkp MB1  &mkp MB3  &mkp MB2  &trans
