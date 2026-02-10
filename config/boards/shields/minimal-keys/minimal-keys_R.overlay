@@ -6,25 +6,25 @@
     col-offset = <6>;
 };
 
-/* 1. トラックボール制御（動作ルール） */
+/* 1. トラックボール制御 */
 / {
-    /* オートマウスレイヤー定義 */
+    /* オートマウスレイヤー定義：ここはシンプルに */
     zip_temp_layer_6: zip_temp_layer_6 {
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <2>;
-        /* 戻り時間を短く設定 */
-        timeout-ms = <100>;
     };
 
     /* 入力リスナー */
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        /* <&zip_temp_layer_6 レイヤー番号 最小移動ドット数>
-           末尾の「10」が閾値です。10ドット動かすまでレイヤーが変わりません。 */
-        input-processors = <&zip_temp_layer_6 6 10>;
+        
+        /* 引数の構成： <&プロセッサ名 レイヤー番号 タイムアウトms>
+           この「100」が戻り時間です。
+           もし移動量での閾値を設けたい場合は、ドライバ側で調整します。 */
+        input-processors = <&zip_temp_layer_6 6 100>;
 
-        /* スクロールレイヤー(7)の時はオートマウスを無効化 */
+        /* スクロールレイヤー(7)の時は無効化 */
         input-processors-exclude-layers = <7>;
     };
 };
@@ -46,7 +46,7 @@
         ;
 };
 
-/* 3. SPIピン設定 */
+/* 3. SPIピン設定（既存のまま） */
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
