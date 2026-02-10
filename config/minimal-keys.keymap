@@ -14,7 +14,6 @@
         compatible = "zmk,input-listener";
     };
 
-    // ★ keymap の外に置く必要があるノード参照
     &zip_temp_layer {
         require-prior-idle-ms = <200>;
     };
@@ -34,9 +33,6 @@
             >;
         };
     };
-
-    keymap {
-        compatible = "zmk,keymap";
 
 &mt {
     flavor = "balanced";
