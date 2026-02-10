@@ -18,7 +18,7 @@ manifest:
       remote: caksoylar
       revision: main
     - name: zmk-node-free-config
-      url: https://github.com/urob/zmk-node-free-config # フルパスで直接指定
+      url: https://github.com/urob/zmk-node-free-config  # ← ここをフルURLに変更
       revision: main
   self:
     path: config
