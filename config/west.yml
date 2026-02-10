@@ -17,8 +17,8 @@ manifest:
     - name: zmk-rgbled-widget
       remote: caksoylar
       revision: main
-    - name: zmk-node-free-config  # 直接 URL を指定する形に変更
-      url: https://github.com/urob/zmk-node-free-config
+    - name: zmk-node-free-config
+      url: https://github.com/urob/zmk-node-free-config # フルパスで直接指定
       revision: main
   self:
     path: config
