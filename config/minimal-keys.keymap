@@ -15,9 +15,7 @@
     quick-tap-ms = <0>;
 };
 
-/* * トラックボール移動時にマウスレイヤーへ移行する際の
- * アイドル判定しきい値を500msに設定
- */
+/* トラックボール移動時のアイドル判定しきい値を500msに設定 */
 &zip_temp_layer {
     require-prior-idle-ms = <500>;
 };
@@ -26,14 +24,15 @@
     /* トラックボール用リスナー定義 */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
+        /* * エラー回避のため device 指定を削除。
+         * シールド側（minimal-keys）で正しくノードが紐付けられていれば動作します。
+         */
         
-        /* 通常時の挙動：マウスレイヤー(6)への500ms自動移行を含む */
         input-processors = <
             &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
             &zip_temp_layer MOUSE 500
         >;
 
-        /* スクロールレイヤー(3)滞在時の挙動設定 */
         scroller {
             layers = <SCROLL>;
             input-processors = <
