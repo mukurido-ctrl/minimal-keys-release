@@ -15,10 +15,33 @@
     quick-tap-ms = <0>;
 };
 
+/* * トラックボール移動時にマウスレイヤーへ移行する際の
+ * アイドル判定しきい値を500msに設定
+ */
+&zip_temp_layer {
+    require-prior-idle-ms = <500>;
+};
+
 / {
     /* トラックボール用リスナー定義 */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
+        
+        /* 通常時の挙動：マウスレイヤー(6)への500ms自動移行を含む */
+        input-processors = <
+            &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
+            &zip_temp_layer MOUSE 500
+        >;
+
+        /* スクロールレイヤー(3)滞在時の挙動設定 */
+        scroller {
+            layers = <SCROLL>;
+            input-processors = <
+                &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)
+                &zip_xy_scaler 1 20
+                &zip_xy_to_scroll_mapper
+            >;
+        };
     };
 
     combos {
@@ -63,48 +86,43 @@
 
         default_layer {
             bindings = <
-&kp Q     &kp W         &kp E              &kp R                  &kp T                                  &kp Y            &kp U  &kp I      &kp O    &lt 6 P
+&kp Q     &kp W         &kp E              &kp R                  &kp T                                                  &kp Y            &kp U  &kp I      &kp O    &lt 6 P
 &kp A     &kp S         &kp D              &kp F                  &kp G        &mkp MB1       &kp COLON  &kp H            &kp J  &kp K      &kp L    &kp MINUS
 &kp Z     &kp X         &kp C              &kp V                  &kp B        &mkp MB2       &kp CAPS   &kp N            &kp M  &kp COMMA  &kp DOT  &kp SLASH
 &kp RCMD  &kp LEFT_ALT  &kp RIGHT_CONTROL  &mt LEFT_COMMAND CAPS  &lt 1 SPACE  &lt 3 ENTER    &lt 1 DEL  &lt 2 BACKSPACE                             &kp RIGHT_SHIFT
             >;
-
             sensor-bindings = <&inc_dec_kp C_VOLUME_DOWN C_VOLUME_UP>;
         };
 
         layer_1 {
             bindings = <
-&kp ESCAPE        &kp LEFT_SHIFT    &mkp MB2           &mkp MB1      &mkp MB3                                       &kp F1     &kp F6                    &kp UP_ARROW               &kp RG(S)        &kp RG(R)
-&kp TAB           &kp HASH          &kp RS(AMPERSAND)  &kp QUESTION  &kp EXCLAMATION  &kp COLON    &kp RS(RCMD)     &kp EQUAL  &kp LEFT_ARROW            &kp DOWN_ARROW             &kp RIGHT_ARROW  &kp F10
+&kp ESCAPE        &kp LEFT_SHIFT    &mkp MB2           &mkp MB1      &mkp MB3                                        &kp F1     &kp F6                    &kp UP_ARROW               &kp RG(S)        &kp RG(R)
+&kp TAB           &kp HASH          &kp RS(AMPERSAND)  &kp QUESTION  &kp EXCLAMATION  &kp COLON    &kp RS(RCMD)      &kp EQUAL  &kp LEFT_ARROW            &kp DOWN_ARROW             &kp RIGHT_ARROW  &kp F10
 &kp PERCENT       &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp AT        &kp BACKSLASH    &kp SEMI     &kp RIGHT_SHIFT  &kp RCMD   &kp RS(RG(LEFT_BRACKET))  &kp RS(LG(RIGHT_BRACKET))  &kp RS(LG(T))    &kp F11
-&kp LEFT_COMMAND  &kp LG(F)         &kp LG(X)          &kp LG(Z)     &kp LS(LG(Z))    &kp LG(Y)    &kp RG(A)        &kp RG(X)                                                                        &kp RIGHT_SHIFT
+&kp LEFT_COMMAND  &kp LG(F)         &kp LG(X)          &kp LG(Z)      &kp LS(LG(Z))    &kp LG(Y)    &kp RG(A)        &kp RG(X)                                                                        &kp RIGHT_SHIFT
             >;
-
             sensor-bindings = <&inc_dec_kp C_AC_SCROLL_UP C_AC_SCROLL_DOWN>;
         };
 
         layer_2 {
             bindings = <
-&kp DEL               &kp PERIOD  &kp NUMBER_7  &kp NUMBER_8   &kp NUMBER_9                                  &kp CARET         &kp AMPERSAND       &kp RS(UP_ARROW)    &kp F4               &kp F5
-&kp BACKSPACE         &kp COMMA   &kp NUMBER_4  &kp NUMBER_5   &kp NUMBER_6  &kp NUMBER_0    &kp UNDERSCORE  &kp EXCLAMATION   &kp RS(LEFT_ARROW)  &kp RS(DOWN_ARROW)  &kp LS(RIGHT_ARROW)  &kp PERCENT
+&kp DEL                &kp PERIOD  &kp NUMBER_7  &kp NUMBER_8   &kp NUMBER_9                                  &kp CARET         &kp AMPERSAND       &kp RS(UP_ARROW)    &kp F4               &kp F5
+&kp BACKSPACE          &kp COMMA   &kp NUMBER_4  &kp NUMBER_5   &kp NUMBER_6  &kp NUMBER_0    &kp UNDERSCORE  &kp EXCLAMATION   &kp RS(LEFT_ARROW)  &kp RS(DOWN_ARROW)  &kp LS(RIGHT_ARROW)  &kp PERCENT
 &mt LEFT_SHIFT ASTRK  &kp PERIOD  &kp NUMBER_1  &kp NUMBER_2   &kp NUMBER_3  &kp EQUAL       &kp LG(SPACE)   &kp LEFT_BRACKET  &kp LG(C)           &kp LG(X)           &kp LG(V)            &kp F12
-&kp RG(SPACE)         &kp PLUS    &kp NUMBER_0  &kp RS(RG(V))  &kp RG(C)     &kp RG(V)       &trans          &trans                                                                         &kp PIPE
+&kp RG(SPACE)          &kp PLUS    &kp NUMBER_0  &kp RS(RG(V))  &kp RG(C)     &kp RG(V)       &trans          &trans                                                                         &kp PIPE
             >;
-
-            sensor-bindings =
-                <&scroll_up_down &inc_dec_kp C_VOL_DN C_VOL_UP>;
+            sensor-bindings = <&scroll_up_down &inc_dec_kp C_VOL_DN C_VOL_UP>;
         };
 
-layer_3 {
-    bindings = <
-&kp ESCAPE &kp F1 &kp F3 &kp F4 &trans &kp RA(E) &kp RG(RA(DOWN_ARROW)) &kp RC(UP_ARROW) &kp RA(LEFT_ARROW) &trans
-&kp HOME &kp F5 &kp DOWN_ARROW &kp RIGHT_ARROW &kp END &trans &trans &kp RA(W) &kp RS(RG(LEFT_BRACKET)) &kp RS(RG(RIGHT_BRACKET)) &kp RG(RS(NUMBER_4)) &bt BT_NXT
-&kp LEFT_SHIFT &kp LG(LS(LEFT_ARROW)) &trans &kp LG(LS(RIGHT_ARROW)) &kp LEFT_COMMAND &trans &trans &kp RG(W) &kp RG(LEFT_BRACKET) &kp RG(RIGHT_BRACKET) &kp RS(RG(T)) &bt BT_PRV
-&kp RA(SPACE) &kp INT_HENKAN &kp LANGUAGE_3 &kp RS(LANGUAGE_8) &trans &trans &kp C_VOLUME_DOWN &kp C_VOLUME_UP &bt BT_CLR
-    >;
-
-    sensor-bindings = <&inc_dec_kp LC(PAGE_UP) LC(PAGE_DOWN)>;
-};
+        layer_3 {
+            bindings = <
+&kp ESCAPE      &kp F1                &kp F3             &kp F4                &trans          &kp RA(E)            &kp RG(RA(DOWN_ARROW))  &kp RC(UP_ARROW)               &kp RA(LEFT_ARROW)        &trans
+&kp HOME        &kp F5                &kp DOWN_ARROW     &kp RIGHT_ARROW       &kp END         &trans               &trans                  &kp RA(W)                      &kp RS(RG(LEFT_BRACKET))  &kp RS(RG(RIGHT_BRACKET))  &kp RG(RS(NUMBER_4))  &bt BT_NXT
+&kp LEFT_SHIFT  &kp LG(LS(LEFT_ARROW)) &trans             &kp LG(LS(RIGHT_ARROW)) &kp LEFT_COMMAND &trans               &trans                  &kp RG(W)                      &kp RG(LEFT_BRACKET)     &kp RG(RIGHT_BRACKET)     &kp RS(RG(T))         &bt BT_PRV
+&kp RA(SPACE)   &kp INT_HENKAN        &kp LANGUAGE_3     &kp RS(LANGUAGE_8)    &trans          &trans               &kp C_VOLUME_DOWN       &kp C_VOLUME_UP                &bt BT_CLR
+            >;
+            sensor-bindings = <&inc_dec_kp LC(PAGE_UP) LC(PAGE_DOWN)>;
+        };
 
         layer_4 {
             bindings = <
@@ -117,42 +135,20 @@ layer_3 {
 
         layer_5 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans                          &trans
+&trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans                          &trans
             >;
         };
 
         mouse_layer {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                    &trans  &mkp MB4  &mkp MB5  &trans    &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &mkp MB1  &mkp MB3  &mkp MB2  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans    &trans    &trans    &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans                                &trans
+&trans  &trans  &trans  &trans  &trans                  &trans  &mkp MB4  &mkp MB5  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &mkp MB1  &mkp MB3  &mkp MB2  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans    &trans    &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans                            &trans
             >;
         };
-    };
-};
-
-/* ここから下にトラックボール関連のノード上書きを移動 */
-
-&zip_temp_layer {
-    require-prior-idle-ms = <200>;
-};
-
-&trackball_listener {
-    input-processors = <
-        &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
-        &zip_temp_layer MOUSE 500
-    >;
-
-    scroller {
-        layers = <SCROLL>;
-        input-processors = <
-            &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)
-            &zip_xy_scaler 1 20
-            &zip_xy_to_scroll_mapper
-        >;
     };
 };
