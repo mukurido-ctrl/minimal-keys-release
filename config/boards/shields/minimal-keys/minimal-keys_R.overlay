@@ -14,24 +14,14 @@
         #input-processor-cells = <2>;
     };
 
-    /* スクロール変換定義 */
-    zip_scroll_on_layer_3: zip_scroll_on_layer_3 {
-        compatible = "zmk,input-processor-intercept-layer";
-        #input-processor-cells = <2>;
-        processor = <&zip_xy_to_scroll>;
-    };
-
-    zip_xy_to_scroll: zip_xy_to_scroll {
-        compatible = "zmk,input-processor-xy-to-scroll";
-        #input-processor-cells = <0>;
-    };
-
     /* 入力リスナー：物理デバイスと動作を紐付け */
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>; 
-        /* プロセッサ名 + レイヤー番号(6や3) + 予備引数(0) */
-        input-processors = <&zip_temp_layer_6 6 500>, <&zip_scroll_on_layer_3 3 0>;
+        /* 第1引数: レイヤー番号 (6)
+           第2引数: タイムアウトms (500) 
+        */
+        input-processors = <&zip_temp_layer_6 6 500>;
     };
 };
 
