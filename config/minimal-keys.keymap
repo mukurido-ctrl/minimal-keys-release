@@ -71,10 +71,10 @@
 
         default_layer {
             bindings = <
-&kp Q    &kp W         &kp E              &kp R                  &kp T                                          &kp Y         &kp U  &kp I      &kp O    &lt 7 P
-&kp A    &kp S         &kp D              &kp F                  &kp G        &mkp MB1       &kp LEFT_GUI       &kp H         &kp J  &kp K      &kp L    &kp MINUS
-&kp Z    &kp X         &kp C              &kp V                  &kp B        &mo 3          &kp RS(SEMICOLON)  &kp N         &kp M  &kp COMMA  &kp DOT  &kp EQUAL
-&kp TAB  &kp LEFT_ALT  &kp RIGHT_CONTROL  &mt LEFT_COMMAND CAPS  &lt 1 SPACE  &lt 7 ENTER    &lt 1 BACKSPACE    &lt 2 RETURN                             &kp RIGHT_SHIFT
+&kp Q    &kp W         &kp E              &kp R       &kp T                                          &kp Y         &kp U  &kp I      &kp O    &lt 7 P
+&kp A    &kp S         &kp D              &kp F       &kp G        &mkp MB1       &kp LEFT_GUI       &kp H         &kp J  &kp K      &kp L    &lt 5 MINUS
+&kp Z    &kp X         &kp C              &kp V       &kp B        &mo 3          &kp RS(SEMICOLON)  &kp N         &kp M  &kp COMMA  &kp DOT  &kp EQUAL
+&kp TAB  &kp LEFT_ALT  &kp RIGHT_CONTROL  &lt 4 CAPS  &lt 1 SPACE  &lt 7 ENTER    &lt 1 BACKSPACE    &lt 2 RETURN                             &kp RIGHT_SHIFT
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOLUME_DOWN C_VOLUME_UP>;
@@ -109,7 +109,7 @@
 &kp ESCAPE      &kp F1                  &kp F3          &kp F4                   &trans                                         &kp RA(E)        &kp RG(RA(DOWN_ARROW))    &kp RC(UP_ARROW)           &kp RA(LEFT_ARROW)    &trans
 &kp HOME        &kp F5                  &kp DOWN_ARROW  &kp RIGHT_ARROW          &kp END           &trans    &trans             &kp RA(W)        &kp RS(RG(LEFT_BRACKET))  &kp RS(RG(RIGHT_BRACKET))  &kp RG(RS(NUMBER_4))  &bt BT_NXT
 &kp LEFT_SHIFT  &kp LG(LS(LEFT_ARROW))  &trans          &kp LG(LS(RIGHT_ARROW))  &kp LEFT_COMMAND  &trans    &trans             &kp RG(W)        &kp RG(LEFT_BRACKET)      &kp RG(RIGHT_BRACKET)      &kp RS(RG(T))         &bt BT_PRV
-&kp RA(SPACE)   &kp INT_HENKAN          &kp LANGUAGE_3  &kp RS(LANGUAGE_8)       &trans            &trans    &kp C_VOLUME_DOWN  &kp C_VOLUME_UP                                                                             &bt BT_CLR
+&kp RA(SPACE)   &kp INT_HENKAN          &kp LANGUAGE_3  &kp RS(LANGUAGE_8)       &trans            &trans    &kp C_VOLUME_DOWN  &kp C_VOLUME_UP                                                                             &none
             >;
 
             sensor-bindings = <&inc_dec_kp LC(PAGE_UP) LC(PAGE_DOWN)>;
@@ -126,10 +126,10 @@
 
         layer_5 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans                          &trans
+&trans  &trans  &trans  &trans  &trans                                 &kp RC(RS(TAB))     &kp RC(TAB)  &kp RC(T)  &kp RC(W)  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &kp F5               &kp LG(LS(TAB))     &kp LG(TAB)  &kp LG(T)  &kp LG(W)  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &kp LA(LEFT_ARROW)   &kp LG(LEFT_ARROW)  &trans       &trans     &trans     &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &kp RA(RIGHT_ARROW)  &trans                                                 &trans
             >;
         };
 
